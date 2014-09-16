@@ -1,0 +1,21 @@
+{
+  "name": "most-websocket",
+  "version": "0.1.0",
+  "description": "most.js WebSocket adapter - stream to and from WebSockets",
+  "main": "most-websocket.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "most",
+    "stream",
+    "streams",
+    "websocket",
+    "cujojs"
+  ],
+  "author": "brian@hovercraftstudios.com",
+  "license": "MIT",
+  "dependencies": {
+    "most": "^0.7.0"
+  }
+}
