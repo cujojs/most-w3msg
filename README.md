@@ -25,13 +25,13 @@ stream.map(JSON.parse)
 
 ## API
 
-### `fromWebSocket(webSocket:WebSocket) -> Stream`
+##### `fromWebSocket(webSocket:WebSocket) -> Stream`
 
 Create a stream from a WebSocket.  The stream will contain all messages received by the WebSocket *from the time a consumer begins observing the stream* (using `.forEach` or `.reduce`).  The stream will end when the WebSocket closes, or will error if the WebSocket errors.
 
 `fromWebSocket` does not close the WebSocket automatically.  The creator of the WebSocket should close it.
 
-### `toWebSocket(stream:Stream, webSocket:WebSocket) -> Promise`
+##### `toWebSocket(stream:Stream, webSocket:WebSocket) -> Promise`
 
 Send all events from a stream to a WebSocket, and return a promise for the end of the stream.
 
