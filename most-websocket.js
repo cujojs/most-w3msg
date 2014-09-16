@@ -5,8 +5,8 @@
 
 var most = require('most');
 
-create = most.create;
-fromPromise = most.fromPromise;
+var create = most.create;
+var fromPromise = most.fromPromise;
 
 exports.fromWebSocket = fromWebSocket;
 exports.toWebSocket = toWebSocket;
@@ -52,7 +52,7 @@ function pipeFromWebSocket(ws, add, end, error) {
  *  ends cleanly, or will reject if the stream errors.
  */
 function toWebSocket(stream, ws) {
-	return promise(function(resolve) {
+	return new Promise(function(resolve) {
 		pipeToWebSocket(stream, ws, resolve);
 	});
 }
