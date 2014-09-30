@@ -6,17 +6,20 @@ var most = require('most');
 var create = most.create;
 var fromPromise = most.fromPromise;
 
-exports.fromWebSocket   = fromMessageSource;
-exports.toWebSocket     = toWebSocket;
+var defaultMessageEvent = 'message';
 
-exports.fromEventSource = fromMessageSource;
+exports.fromWebSocket     = fromMessageSource;
+exports.toWebSocket       = toWebSocket;
+
 // EventSource is read-only. See https://developer.mozilla.org/en-US/docs/Web/API/EventSource
+exports.fromEventSource   = fromMessageSource;
+exports.fromEventSourceOn = fromMessageSourceEvent;
 
-exports.fromMessagePort = fromMessageSource;
-exports.toMessagePort   = toPort;
+exports.fromMessagePort   = fromMessageSource;
+exports.toMessagePort     = toPort;
 
-exports.fromWorker      = fromMessageSource;
-exports.toWorker        = toPort;
+exports.fromWorker        = fromMessageSource;
+exports.toWorker          = toPort;
 
 /**
  * Create a stream from a "source", which can be a WebSocket, EventSource,
@@ -30,8 +33,25 @@ exports.toWorker        = toPort;
  * @returns {Stream} stream containing all the "message" events received by the source
  */
 function fromMessageSource(source, dispose) {
+	return fromMessageSourceEvent(defaultMessageEvent, source, dispose);
+}
+
+/**
+ * Create a stream from a "source", which can be a WebSocket, EventSource,
+ * MessagePort, Worker, or anything that supports addEventListener
+ * events.  The stream will end when the source closes (emits a "close" event),
+ * and will fail if the source fails (emits an "error" event)
+ * @private
+ * @param {string} eventName name of the specific event to listen to
+ * @param {WebSocket} source WebSocket (or compatible, eg SockJS), EventSource,
+ *  Worker, etc from which to create a stream
+ * @param {function():*} dispose function to execute when the source is closed,
+ *  fails, or all consumers lose interest.
+ * @returns {Stream} stream containing all the "message" events received by the source
+ */
+function fromMessageSourceEvent(eventName, source, dispose) {
 	return create(function(add, end, error) {
-		return pipeFromSource(source, dispose, add, end, error);
+		return pipeFromSource(source, eventName, dispose, add, end, error);
 	});
 }
 
@@ -89,7 +109,7 @@ function postMessage(sink, msg) {
  * @param {function(e:Error)} error function to signal the stream has failed
  * @returns {function} function to remove event handlers and call dispose if provided
  */
-function pipeFromSource(source, dispose, add, end, error) {
+function pipeFromSource(source, eventName, dispose, add, end, error) {
 	if(typeof dispose !== 'function') {
 		dispose = noop;
 	}
@@ -103,7 +123,7 @@ function pipeFromSource(source, dispose, add, end, error) {
 	function onOpen() {
 		source.addEventListener('close', end);
 		source.addEventListener('error', error);
-		source.addEventListener('message', add);
+		source.addEventListener(eventName, add);
 	}
 
 	return function() {
@@ -113,7 +133,7 @@ function pipeFromSource(source, dispose, add, end, error) {
 
 		source.removeEventListener('close', end);
 		source.removeEventListener('error', error);
-		source.removeEventListener('message', add);
+		source.removeEventListener(eventName, add);
 		return dispose();
 	};
 }
