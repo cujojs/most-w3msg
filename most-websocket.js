@@ -16,15 +16,16 @@ exports.toWebSocket = toWebSocket;
  * closes, and will fail if the WebSocket fails.
  * @param {WebSocket} ws WebSocket (or compatible, eg SockJS) from
  *  which to create a stream
+ * @param {function():*} dispose
  * @returns {Stream} stream of all the messages received by the WebSocket
  */
-function fromWebSocket(ws) {
+function fromWebSocket(ws, dispose) {
 	return create(function(add, end, error) {
-		return pipeFromWebSocket(ws, add, end, error);
+		return pipeFromWebSocket(ws, dispose, add, end, error);
 	});
 }
 
-function pipeFromWebSocket(ws, add, end, error) {
+function pipeFromWebSocket(ws, dispose, add, end, error) {
 	ws.addEventListener('open', onOpen);
 
 	function onOpen() {
@@ -37,6 +38,7 @@ function pipeFromWebSocket(ws, add, end, error) {
 		ws.removeEventListener('close', end);
 		ws.removeEventListener('error', error);
 		ws.removeEventListener('message', add);
+		return dispose();
 	};
 }
 
