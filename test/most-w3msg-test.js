@@ -1,7 +1,7 @@
 require('buster').spec.expose();
 //var expect = require('buster').expect;
 
-var mws = require('../most-websocket');
+var mws = require('../most-w3msg');
 var fromWebSocket = mws.fromWebSocket;
 var toWebSocket = mws.toWebSocket;
 
