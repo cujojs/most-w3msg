@@ -16,7 +16,7 @@
   "author": "brian@hovercraftstudios.com",
   "license": "MIT",
   "dependencies": {
-    "most": "~0.8"
+    "most": "^0.13.0"
   },
   "devDependencies": {
     "jshint": "~2.5",

@@ -54,6 +54,10 @@ If the WebSocket closes before the stream ends, the returned promise will fulfil
 
 ####`fromEventSource(eventSource [, dispose]) -> Stream`
 
+### fromEventSourceOn
+
+####`fromEventSourceOn(eventName, eventSource [, dispose]) -> Stream`
+
 ### fromMessagePort
 
 ####`fromMessagePort(port [, dispose]) -> Stream`
