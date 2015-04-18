@@ -26,6 +26,6 @@
     "package.json"
   ],
   "dependencies": {
-    "most": "~0.8.0"
+    "most": "~0.13.0"
   }
 }
