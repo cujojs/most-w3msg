@@ -2,6 +2,8 @@
 /** @author Brian Cavalier */
 /** @author John Hann */
 
+/* globals Promise */
+
 var most = require('most');
 var create = most.create;
 var fromPromise = most.fromPromise;
