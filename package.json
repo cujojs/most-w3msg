@@ -15,11 +15,11 @@
   ],
   "author": "brian@hovercraftstudios.com",
   "license": "MIT",
-  "dependencies": {
-    "most": "^0.13.0"
-  },
   "devDependencies": {
-    "jshint": "~2.5",
-    "buster": "~0.7"
+    "jshint": "~2.9",
+    "buster": "~0.8"
+  },
+  "peerDependencies": {
+    "most": "^0.19.7"
   }
 }
