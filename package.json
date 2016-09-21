@@ -16,13 +16,14 @@
   "author": "brian@hovercraftstudios.com",
   "license": "MIT",
   "devDependencies": {
-    "@most/create": "^1.1.3",
     "buster": "~0.8",
     "jshint": "~2.9",
     "most": "^1.0.3"
   },
   "peerDependencies": {
-    "most": "^1.0.0",
-    "@most/create": "^1.1.0"
+    "most": "^1.0.0"
+  },
+  "dependencies": {
+    "@most/create": "^1.1.3"
   }
 }
