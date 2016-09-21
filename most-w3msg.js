@@ -5,7 +5,7 @@
 /* globals Promise */
 
 var most = require('most');
-var create = most.create;
+var create = require('@most/create');
 var fromPromise = most.fromPromise;
 
 var defaultMessageEvent = 'message';
