@@ -1,6 +1,6 @@
 {
   "name": "most-w3msg",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "most.js Web Messaging - event streams for WebSockets, EventSource, MessageChannel, Worker, etc.",
   "main": "most-w3msg.js",
   "scripts": {
